@@ -31,7 +31,7 @@ class Client:
         result = self.obs.getObjectMetadata(bucket, filename)
         if result.status < 300:
             # has same file
-            return False
+            return False, "has same file"
 
         # upload file to obs
         headers = PutObjectHeader(contentType=content_type)
@@ -56,10 +56,10 @@ class Client:
 
         # delete success
         if result.status < 300:
-            return True
+            return True, "delete success"
 
         # delete failed
-        return False
+        return False, result.reason
 
     def get_object(self, bucket, filename):
         """Get file from OBS.
