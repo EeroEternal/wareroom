@@ -61,11 +61,16 @@ class Client:
         # delete failed
         return False, result.reason
 
-    def get_object(self, bucket, filename):
+    def get(self, bucket, filename):
         """Get file from OBS.
 
         Args:
             bucket (str): OBS bucket name.
             filename (str): filename
         """
-        return self.obs.getObject(bucket, filename, loadStreamInMemory=True)
+        result = self.obs.getObject(bucket, filename, loadStreamInMemory=True)
+
+        if result.status < 300:
+            return True, result.body["contentType"],  result.body.buffer
+
+        return False, result.reason,""
