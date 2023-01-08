@@ -79,4 +79,4 @@ class Client:
         if result.status < 300:
             return True, result.body["contentType"],  result.body.buffer
 
-        return False, result.reason,""
+        return False, result.reason, ""
