@@ -26,6 +26,8 @@ class Client:
             file (File) :  A SpooledTemporaryFile (a file-like object).
             This is the actual Python file that you can pass directly to other functions
             or libraries that expect a "file-like" object.
+        Returns:
+            (bool, str): (True/False, url/reason)
         """
         # check is has same file
         result = self.obs.getObjectMetadata(bucket, filename)
@@ -51,6 +53,8 @@ class Client:
         Args:
             bucket (str): OBS bucket name.
             filename (str): filename
+        Returns:
+            (bool, str): (True/False, message/reason)
         """
         result = self.obs.deleteObject(bucket, filename)
 
@@ -67,6 +71,8 @@ class Client:
         Args:
             bucket (str): OBS bucket name.
             filename (str): filename
+        Returns:
+            (bool, str, str): (True/False, content_type/reason, buffer/"")
         """
         result = self.obs.getObject(bucket, filename, loadStreamInMemory=True)
 
