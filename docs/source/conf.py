@@ -34,4 +34,4 @@ html_theme = 'alabaster'
 html_static_path = ['_static']
 
 # theme options
-html_theme = "alabaster"
+html_theme = "furo"
