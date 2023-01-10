@@ -10,4 +10,14 @@ versioneer install --vendor
     
 ```bash
 git config core.fileMode false
-   ```
+```
+
+## google credential
+
+```bash
+gcloud auth application-default login
+
+gcloud auth application-default set-quota-project wareroom
+```
+
+credential path: `/Users/lipi/.config/gcloud/application_default_credentials.json`

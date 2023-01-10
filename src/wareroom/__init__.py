@@ -1,6 +1,6 @@
 """Cloud storage backends for Diligent."""
 
-from .obs import Client
+from .storage import Client
 
 __all__ = ["Client"]
 from . import _version

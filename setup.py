@@ -1,19 +1,13 @@
 """Setup configuration for the package."""
 # -*- coding: utf-8 -*-
-try:
-    from setuptools import find_packages, setup
-    import versioneer
-except ImportError:
-    import distribute_setup
+from setuptools import find_packages, setup
+import versioneer
 
-    distribute_setup.use_setuptools()
-    from setuptools import setup, find_packages
-    import versioneer
 
 # pylint: disable=invalid-name
 long_desc = """cloud object storage wrapper"""
 
-requires = ["esdk-obs-python"]
+requires = ["esdk-storage-python","wareroom"]
 
 setup(
     name="wareroom",

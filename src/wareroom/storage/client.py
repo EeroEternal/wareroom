@@ -1,33 +1,43 @@
-"""Huawei Object Based Storage (OBS) backend."""
+"""Object Based Storage (OBS) backend."""
 from obs import ObsClient, PutObjectHeader
 
 
 class Client:
-    """Huawei Object Based Storage (OBS) backend."""
+    """Object Based Storage (OBS) backend.
 
-    def __init__(self, access_key, secret_key, endpoint):
+
+
+    """
+
+    def __init__(self, credentials):
         """Initialize the OBS backend.
 
-        Args:
-            access_key(str): OBS access key.
-            secret_key (str): OBS secret access key.
-            endpoint (str): OBS server address. e.g. https://obs.cn-north-1.myhwclouds.com
+        :param access_key: OBS access key.
+        :type access_key: str
+        :param secret_key: OBS secret access key.
+        :type secret_key: str
+        :param endpoint: OBS server address. e.g. https://obs.cn-north-1.myhwclouds.com
+        :type endpoint: str
         """
 
-        self.obs = ObsClient(access_key, secret_key, server=endpoint)
+        # self.obs = ObsClient(access_key, secret_key, server=endpoint)
 
     def add(self, bucket, filename, content_type, file):
         """Add file to OBS.
 
-        Args:
-            bucket (str): OBS bucket name.
-            filename (str): filename.
-            content_type (str): image MIME type / media type e.g. image/png or text/markdown.
-            file (File) :  A SpooledTemporaryFile (a file-like object).
+        :param bucket: OBS bucket name.
+        :type bucket: str
+        :param filename: filename.
+        :type filename: str
+        :param content_type: image MIME type / media type e.g. image/png or text/markdown.
+        :type content_type: str
+        :param file: A SpooledTemporaryFile (a file-like object).
             This is the actual Python file that you can pass directly to other functions
             or libraries that expect a "file-like" object.
-        Returns:
-            (bool, str): (True/False, url/reason)
+        :type file: File
+
+        :return: if success return (True, url), else return (False, reason)
+        :rtype: (bool, str)
         """
         # check is has same file
         result = self.obs.getObjectMetadata(bucket, filename)
@@ -35,7 +45,7 @@ class Client:
             # has same file
             return False, "has same file"
 
-        # upload file to obs
+        # upload file to storage
         headers = PutObjectHeader(contentType=content_type)
         result = self.obs.putContent(bucket, filename, file, headers)
 
@@ -50,11 +60,13 @@ class Client:
     def delete(self, bucket, filename):
         """Delete file from OBS.
 
-        Args:
-            bucket (str): OBS bucket name.
-            filename (str): filename
-        Returns:
-            (bool, str): (True/False, message/reason)
+        :param bucket: OBS bucket name.
+        :type bucket: str
+        :param filename: filename
+        :type filename: str
+
+        :return: if success return (True, message), else return (False, reason)
+        :rtype: (bool, str)
         """
         result = self.obs.deleteObject(bucket, filename)
 
@@ -68,11 +80,13 @@ class Client:
     def get(self, bucket, filename):
         """Get file from OBS.
 
-        Args:
-            bucket (str): OBS bucket name.
-            filename (str): filename
-        Returns:
-            (bool, str, str): (True/False, content_type/reason, buffer/"")
+        :param bucket: OBS bucket name.
+        :type bucket: str
+        :param filename: filename
+        :type filename: str
+
+        :return: if success return (True, file), else return (False, reason)
+        :rtype: (bool, str)
         """
         result = self.obs.getObject(bucket, filename, loadStreamInMemory=True)
 

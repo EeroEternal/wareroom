@@ -3,6 +3,8 @@
 
 # config file
 tests/data/config.toml
+tests/data/google_credentials.json
+tests/data/aws_credentials.csv
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
