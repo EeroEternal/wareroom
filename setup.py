@@ -7,7 +7,7 @@ import versioneer
 # pylint: disable=invalid-name
 long_desc = """cloud object storage wrapper"""
 
-requires = ["esdk-storage-python","wareroom"]
+requires = ["esdk-storage-python"]
 
 setup(
     name="wareroom",
