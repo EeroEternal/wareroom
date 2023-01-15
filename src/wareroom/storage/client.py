@@ -118,7 +118,7 @@ class Client:
         # set bucket_name
         bucket = bucket if bucket else self._bucket
         if bucket.name is None:
-            return False, "bucket name is None"
+            return False, "bucket name is None", ""
 
         # get object from cloud
         result = self._client.getObject(bucket.name, filename,
