@@ -29,7 +29,7 @@ class Bucket:
         """
         with open(filepath, 'rb') as file:
             config = tomllib.load(file)
-            bucket= config["obs"]["bucket"]
+            bucket= config[kind]["bucket"]
 
             return \
                 cls(bucket)

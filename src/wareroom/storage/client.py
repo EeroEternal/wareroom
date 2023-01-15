@@ -11,7 +11,7 @@ class Client:
     :type credentials: :class:`Credential`
     """
 
-    def __init__(self, credentials):
+    def __init__(self, credentials: Credential):
         """Initialize the cloud storage backend.
         """
         self._client = ObsClient(credentials.access_key,
@@ -37,7 +37,7 @@ class Client:
         """
         self._bucket = bucket
 
-    def add(self, filename, content_type, file, bucket=None):
+    def add(self, filename, content_type, file, bucket: Bucket):
         """Add file to cloud storage.
 
         :param filename: filename.
@@ -48,8 +48,8 @@ class Client:
             This is the actual Python file that you can pass directly to other functions
             or libraries that expect a "file-like" object.
         :type file: File
-        :param bucket: bucket name. If bucket is None, use default bucket.
-        :type bucket: str, optional
+        :param bucket: bucket object
+        :type bucket: Bucket
 
         :return: if success return (True, url), else return (False, reason)
         :rtype: (bool, str)
@@ -77,13 +77,13 @@ class Client:
         # upload failed, return false and error message
         return False, result.reason
 
-    def delete(self, filename, bucket=None):
+    def delete(self, filename, bucket):
         """Delete file from cloud storage.
 
         :param filename: filename
         :type filename: str
-        :param bucket: bucket name. If bucket is None, use default bucket.
-        :type bucket: str, optional
+        :param bucket: bucket object
+        :type bucket: Bucket
 
         :return: if success return (True, message), else return (False, reason)
         :rtype: (bool, str)
@@ -103,13 +103,13 @@ class Client:
         # delete failed
         return False, result.reason
 
-    def get(self, filename, bucket=None):
+    def get(self, filename, bucket):
         """Get file from cloud storage.
 
         :param filename: filename
         :type filename: str
-        :param bucket: bucket name. if bucket is None, use default bucket.
-        :type bucket: str, optional
+        :param bucket: bucket object
+        :type bucket: Bucket
 
         :return: if success return (True, filetype, buffer),
             else return (False, reason, "")
